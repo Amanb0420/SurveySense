@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = "postgres://default:p0t3vWdRGIfS@ep-crimson-credit-a1wiz0ss-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15" // uses connection pooling
+  directUrl = "postgres://default:p0t3vWdRGIfS@ep-crimson-credit-a1wiz0ss.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require" // uses a direct connection
+}
+
+model Form{
+  id Int @id @default(autoincrement())
+  userId String
+  createdAt DateTime @default(now())
+  name String
+  description String @default("")
+  content String @default("[]")
+  published Boolean @default(false)
+  visits Int @default(0)
+  submissions Int @default(0)
+  shareURL String @unique @default(uuid())
+  FormSubmissions FormSubmissions[]
+
+  @@unique([userId, name])
+}
+
+model FormSubmissions{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  formId Int
+  form Form @relation(fields: [formId], references: [id])
+
+  content String
+}

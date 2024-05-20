@@ -1,0 +1,57 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs__nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tabs__nav-item {
+  display: inline-block;
+  position: relative; /* required for ::after pseudo-element */
+  margin-right: 10px; /* adjust for desired spacing between tabs */
+  border-radius: 20px; 
+  background-color: #1E293B;
+  padding: 5px 10px; /* Add padding for better appearance */
+  cursor: pointer; /* Add cursor pointer for clickable tabs */
+}
+
+.tabs__nav-item.active {
+  font-weight: bold;
+  color: #1E50C1;
+  background-color: #1E293;
+}
+
+.tabs__nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; /* position at bottom of tab */
+  left: 0;
+  width: 100%;
+  height: 4px; /* adjust height for desired thickness of rectangle */
+  /* background-color: #007bff; fill color for active tab */
+  /* border-radius: 2px; /* rounded corners for rectangle */
+  /* opacity: 1; adjust opacity if needed */ 
+  transition: all 0.2s ease-in-out; /* optional transition effect */
+}
+
+.tabs__content {
+    flex: 1;  /* or adjust as needed */
+    display: flex;
+    width: calc(100%); /* adjust desired width */
+  }
+
+.tabs__content-item {
+  display: none;
+}
+
+.tabs__content-item.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
